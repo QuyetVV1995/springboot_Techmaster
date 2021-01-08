@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Money Converter Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    .column {
+      float: left;
+      padding-left: 50px;
+      padding-right: 20px;
+    }
+    .btn{
+      padding-top: 65px;
+    }
+    .rs{
+      padding-top: 65px;
+      color: #000000;
+      font-family: 'Lato', sans-serif;
+      font-size: 20px;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: inline-block;
+      clear: both;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h1>Currency Converter</h1>
+
+<div class="row">
+  <form action="#" th:action="@{/exp/convert}" method="post" th:object=${moneyConvertRequest}>
+  <div class="column">
+    <h2>Amount</h2>
+    <label for="amount"></label><input type="number" id="amount" th:field="${moneyConvertRequest.amount}">
+    <br><br>
+  </div>
+
+  <div class="column">
+    <h2>From</h2>
+    <label for="fromCurrencySelect"></label>
+    <select th:field="${moneyConvertRequest.fromCurrency}" id="fromCurrencySelect">
+      <option th:each="currency : ${currencies}" th:value="${currency.code}" th:text="${currency.code}"></option>
+    </select>
+  </div>
+
+  <div class="column">
+    <h2>To</h2>
+    <label for="toCurrencySelect"></label>
+    <select th:field="${moneyConvertRequest.toCurrency}" id="toCurrencySelect">
+      <option th:each="currency : ${currencies}" th:value="${currency.code}" th:text="${currency.code}"></option>
+    </select>
+  </div>
+    <div class="column btn">
+      <button type="sumoneyt">Convert</button>
+    </div>
+  </form>
+
+  <div class="column rs" th:object="${result}">
+    Result : <strong th:text="${result?.result}"></strong><br>
+  </div>
+</div>
+
+</body>
+
+</html>
